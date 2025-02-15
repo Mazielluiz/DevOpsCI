@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {
+        nodejs "node 23.8.0"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/Mazielluiz/DevOpsCI.git']]])
+            }
+        }
+        stage('Build') {
+            steps {
+                bat 'npm install'
+                bat 'npm run build'
+            }
+        }
+        stage('Run Unit Tests') {
+            steps {
+                bat 'npm run test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                bat 'npm run deploy'
+            }
+        }
+    }
+}
