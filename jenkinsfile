@@ -1,9 +1,14 @@
 pipeline {
     agent any
     tools {
-        nodejs "node 23.8.0"
+        nodejs "NodeJS_12" // Corrigir o nome da ferramenta Node.js
     }
     stages {
+        stage('Clean Workspace') { // Adicionar stage para limpar a workspace
+            steps {
+                deleteDir()
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/Mazielluiz/DevOpsCI.git']]])
@@ -24,6 +29,18 @@ pipeline {
             steps {
                 bat 'npm run deploy'
             }
+        }
+        stage('Commit') {
+            steps {
+                bat 'git add .'
+                bat 'git commit -m "Automated commit"'
+                bat 'git push origin main'
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs() // Limpar a workspace após a execução do pipeline
         }
     }
 }
