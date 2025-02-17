@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        nodejs "NodeJS_12" // Corrigir o nome da ferramenta Node.js
+        nodejs "node 23.8.0" // Corrigir o nome da ferramenta Node.js
     }
     stages {
         stage('Clean Workspace') { // Adicionar stage para limpar a workspace
