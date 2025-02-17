@@ -9,7 +9,7 @@
       "preLaunchTask": "npm: install && npm: start",
       "url": "http://localhost:4200/",
       "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "node",
+      "runtimeExecutable": "node"
     },
     {
       "name": "ng test",
@@ -18,7 +18,7 @@
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html",
       "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "node",
+      "runtimeExecutable": "node"
     },
     {
       "name": "Node Launch",
