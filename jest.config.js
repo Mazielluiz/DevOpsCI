@@ -6,8 +6,21 @@ module.exports = {
     collectCoverage: true,
     coverageDirectory: 'coverage',
     coverageReporters: ['text', 'lcov'],
-    moduleFileExtensions: ['js', 'json', 'jsx', 'node'],
+    moduleFileExtensions: ['ts', 'html', 'js', 'json', 'jsx', 'node'],
     transform: {
+        '^.+\\.(ts|html)$': 'ts-jest',
         '^.+\\.jsx?$': 'babel-jest'
-    }
+    },
+    globals: {
+        'ts-jest': {
+            tsconfig: 'tsconfig.spec.json',
+            stringifyContentPathRegex: '\\.html$',
+            astTransformers: {
+                before: ['jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer']
+            }
+        }
+    },
+    preset: 'jest-preset-angular',
+    setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+    testTimeout: 30000
 };

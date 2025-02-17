@@ -3,10 +3,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
-      "preLaunchTask": "npm: install && npm: start",
+      "preLaunchTask": "npm: install && npm start",
       "url": "http://localhost:4200/",
       "webRoot": "${workspaceFolder}",
       "runtimeExecutable": "node"

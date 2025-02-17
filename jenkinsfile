@@ -1,56 +1,29 @@
 pipeline {
     agent any
     tools {
-        nodejs "nodejs-23.8.0" // Corrigir o nome da ferramenta Node.js
+        nodejs "nodejs-14.17.0" // Corrigir o nome da ferramenta Node.js
     }
     stages {
-        stage('Clean Workspace') { // Adicionar stage para limpar a workspace
-            steps {
-                deleteDir()
-            }
-        }
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/Mazielluiz/DevOpsCI.git']]])
             }
         }
-        stage('Install Dependencies') { // Adicionar stage para instalar dependências
-            steps {
-                bat 'npm install @angular-devkit/build-angular'
-                bat 'npm install'
-            }
-        }
-        stage('Lint') { // Adicionar stage para lint
-            steps {
-                bat 'npm run lint'
-            }
-        }
         stage('Build') {
             steps {
+                bat 'npm install'
                 bat 'npm run build'
             }
         }
-        stage('Test') {
+        stage('Run Unit Tests') {
             steps {
                 bat 'npm test'
             }
         }
-        stage('Deploy') {
+        stage('Start ngrok') {
             steps {
-                bat 'npm run deploy'
+                bat 'ngrok http 80'
             }
-        }
-        stage('Commit') {
-            steps {
-                bat 'git add .'
-                bat 'git commit -m "Automated commit"'
-                bat 'git push origin main'
-            }
-        }
-    }
-    post {
-        always {
-            cleanWs() // Limpar a workspace após a execução do pipeline
         }
     }
 }
