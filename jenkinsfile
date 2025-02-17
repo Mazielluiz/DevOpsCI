@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        nodejs "nodejs-14.17.0" // Corrigir o nome da ferramenta Node.js
+        nodejs "nodejs-14.17.0" 
     }
     stages {
         stage('Checkout') {
@@ -19,10 +19,6 @@ pipeline {
             steps {
                 bat 'npm test'
             }
-        }
-        stage('Start ngrok') {
-            steps {
-                bat 'ngrok http 80'
             }
         }
     }
