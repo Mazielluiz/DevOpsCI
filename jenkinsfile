@@ -14,15 +14,25 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/Mazielluiz/DevOpsCI.git']]])
             }
         }
+        stage('Install Dependencies') { // Adicionar stage para instalar dependências
+            steps {
+                bat 'npm install @angular-devkit/build-angular'
+                bat 'npm install'
+            }
+        }
+        stage('Lint') { // Adicionar stage para lint
+            steps {
+                bat 'npm run lint'
+            }
+        }
         stage('Build') {
             steps {
-                bat 'npm install'
                 bat 'npm run build'
             }
         }
-        stage('Run Unit Tests') {
+        stage('Test') {
             steps {
-                bat 'npm run test'
+                bat 'npm test'
             }
         }
         stage('Deploy') {
